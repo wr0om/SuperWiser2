@@ -11,14 +11,15 @@ class RAGAgent(Agent):
         self.qdrant_client = QdrantClient(api_key=self.qdrant_api_key, url=self.qdrant_endpoint)
         print(self.qdrant_client.get_collections())
 
-
+    def delete_collection(self, collection_name):
+        self.qdrant_client.delete_collection(collection_name)
 
     def load_data(self, collection_name, documents):
         # Create the collection if it doesn't exist
         if not self.qdrant_client.collection_exists(collection_name):
             self.qdrant_client.create_collection(
                 collection_name=collection_name,
-                vectors_config=VectorParams(size=768, distance=Distance.COSINE),  # Adjust size and distance as needed
+                vectors_config=VectorParams(size=3, distance=Distance.COSINE),  # Adjust size and distance as needed
             )
 
         # Prepare points for insertion
@@ -36,6 +37,10 @@ class RAGAgent(Agent):
             collection_name=collection_name,
             points=points
         )
+
+        stored_points = self.qdrant_client.scroll(collection_name=collection_name, limit=10, with_payload=True)
+        print(stored_points)
+
 
     def retrieve_documents(self, collection_name, query_vector, limit=1):
         """

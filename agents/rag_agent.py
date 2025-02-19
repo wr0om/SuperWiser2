@@ -1,6 +1,6 @@
 from qdrant_client import QdrantClient
 from agents.agent import *
-from qdrant_client.models import Distance, VectorParams, PointStruct
+from qdrant_client.models import Distance, VectorParams, PointStruct, Batch
 import numpy as np
 
 class RAGAgent(Agent):
@@ -22,23 +22,17 @@ class RAGAgent(Agent):
                 vectors_config=VectorParams(size=3, distance=Distance.COSINE),  # Adjust size and distance as needed
             )
 
-        # Prepare points for insertion
-        points = [
-            PointStruct(
-                id=doc['id'],
-                vector=doc['embedding'],  # Ensure 'embedding' is a list of floats
-                payload=doc['payload']   # Metadata can be any additional information
-            )
-            for doc in documents
-        ]
-
         # Upsert points into the collection
+        ids = [doc["id"] for doc in documents]
+        vectors = [doc["vector"] for doc in documents]
+        payloads = [doc["payload"] for doc in documents]
+
         self.qdrant_client.upsert(
             collection_name=collection_name,
-            points=points
+            points=Batch(ids=ids, vectors=vectors, payloads=payloads)
         )
 
-        stored_points = self.qdrant_client.scroll(collection_name=collection_name, limit=10, with_payload=True)
+        stored_points = self.qdrant_client.scroll(collection_name=collection_name, limit=10, with_payload=True, with_vectors=True)
         print(stored_points)
 
 
@@ -59,7 +53,7 @@ class RAGAgent(Agent):
             collection_name=collection_name,
             query_vector=query_vector,
             limit=limit,
-            with_payload=True  # Include payload (metadata) in the results
+            with_payload=True,  # Include payload (metadata) in the results
         )
 
         # Extract and return the relevant information

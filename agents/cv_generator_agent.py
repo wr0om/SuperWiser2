@@ -1,4 +1,4 @@
-from agent import *
+from agents.agent import Agent
 
 class CVGenerator(Agent):
     def __init__(self):

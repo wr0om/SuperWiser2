@@ -9,7 +9,7 @@ class CVGenerator(Agent):
 
             ### **Input Sources:**  
             1. **CV Parser Data** - Extracted details from the user's existing CV.  
-            2. **User Prompt** - Custom instructions or preferences for CV content.  
+            2. **User Input** - Custom instructions or preferences for CV content.  
             3. **Supervisor's Recommendations** - Key requirements and expectations from the RAG Agent.  
             4. **Feedback (Optional)** - Corrections and suggestions from the CV Feedback Agent.  
 
@@ -61,17 +61,17 @@ class CVGenerator(Agent):
             Your goal is to generate a **tailored, polished CV** that can be sent directly to the supervisor.
             """
 
-    def generate_response(self, user_prompt, cv_data, supervisor_recommendations, feedback=""):
-        self.cv_data = cv_data
-        self.user_prompt = user_prompt
+    def generate_response(self, user_input, parsed_cv, supervisor_recommendations, feedback=""):
+        self.parsed_cv = parsed_cv
+        self.user_input = user_input
         self.supervisor_recommendations = supervisor_recommendations
 
         formatted_prompt = f"""
-            **User Prompt:**
-            {self.user_prompt}
+            **User Input:**
+            {self.user_input}
             ---
-            **CV Parser Data:**
-            {self.cv_data}
+            **Parsed CV**
+            {self.parsed_cv}
             ---
             **Supervisor Recommendations:**
             {self.supervisor_recommendations}

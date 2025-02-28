@@ -1,0 +1,69 @@
+**Name:** Rom Himelstein  
+**Email:** romh@campus.technion.ac.il  
+**Phone:** 053-7176756  
+**LinkedIn:** [linkedin.com/in/technion](https://linkedin.com/in/technion)  
+**Website:** Not provided  
+
+---
+
+#### **Education:**  
+- Master of Science in Data Science | Technion - Israel Institute of Technology | 2024–2026  
+- Bachelor of Science in Data Science | Technion - Israel Institute of Technology | 2021–2024  
+
+---
+
+#### **Research Experience:**  
+- **Publication-Based Research in Adversarial Attacks on Large Language Models** | Independent Research | 2024–Present  
+  - **Description:** Conducted research on the vulnerabilities of large language models (LLMs) to adversarial attacks, culminating in the publication of *"Enhancing Jailbreak Attacks via Compliance-Refusal-Based Initialization"* at ICML25. Focused on developing novel attack strategies and analyzing defensive measures.  
+
+---
+
+#### **Work Experience:**  
+- **Teaching Assistant** | Technion - Israel Institute of Technology | June 2024–Present  
+  - **Description:** Graded and supported students in the Probability M (094412) course, ensuring clarity in foundational concepts and advanced applications.  
+
+- **Student Aid** | Technion - Israel Institute of Technology | October 2022–April 2023 & October 2024–Present  
+  - **Description:** Provided mentoring and academic guidance to first-year Data Science students, fostering their understanding of core concepts and study techniques.  
+
+---
+
+#### **Volunteer Experience:**  
+- **Lecturer** | Technipwn CTF Group & Adversarial Attacks Course (02360207) | 2023–2024  
+  - **Description:** Delivered lectures on adversarial attacks, covering key principles, practical implementations, and the impact of these attacks on machine learning models. Engaged students in interactive discussions and hands-on labs.  
+
+---
+
+#### **Publications:**  
+- "**Enhancing Jailbreak Attacks via Compliance-Refusal-Based Initialization**" | Rom Himelstein | ICML25 | 2024  
+
+---
+
+#### **Skills:**  
+- Adversarial Attacks, Large Language Models (LLMs), Cybersecurity, Data Science, Teaching, Research, Probability.  
+
+---
+
+#### **Awards & Achievements:**  
+- Part of the *"Alonim"* excellence program | IDF | [Year Not Provided]  
+- **Cum Laude** (92.7 GPA) | Technion - Israel Institute of Technology | 2024  
+
+---
+
+### **Tailored Content for Professor Avi Mendelson**  
+
+#### **Why You Should Work With Me:**  
+1. **Research Alignment:**  
+   - My expertise in adversarial attacks and large language models complements your work on machine learning applications in security, particularly in real-time and IoT systems.  
+   - My publication at ICML25 highlights my ability to contribute innovative ideas to projects addressing LLM vulnerabilities and defensive strategies.  
+
+2. **Skills and Contribution Potential:**  
+   - My strong foundation in data science and LLMs can support your exploration of integrating machine learning into secure systems like SCART.  
+   - My teaching and mentoring experience demonstrate my ability to collaborate effectively in academic and research environments.  
+
+3. **Collaborative Opportunities:**  
+   - I am particularly interested in exploring the intersection of LLM vulnerabilities and hardware security, such as leveraging LLMs to identify hardware Trojans or mitigating adversarial attacks at the hardware level.  
+   - I see potential in extending your SCART framework by incorporating LLMs for real-time threat detection and decision-making in autonomous systems.  
+
+---
+
+This CV is tailored for a strong application to work under Professor Avi Mendelson, emphasizing your expertise in LLMs, adversarial attacks, and their intersections with cybersecurity and hardware-software co-design. Let me know if you'd like further refinements!

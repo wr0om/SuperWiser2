@@ -11,18 +11,18 @@ load_dotenv()
 
 class Agent:
     def __init__(self, system=""):
-        AZURE_OPENAI_API_KEY = os.getenv("API_KEY")
-        DEOLOYMENT_NAME = "team5-gpt4o" # team5-embedding
-        AZURE_OPENAI_ENDPOINT = "https://096290-oai.openai.azure.com"
-        API_VERSION = "2023-05-15"
+        self.azure_openai_api_key = os.getenv("API_KEY")
+        self.chat_deployment_name = "team5-gpt4o" # team5-embedding
+        self.azure_openai_endpoint = "https://096290-oai.openai.azure.com"
+        self.api_version = "2023-05-15"
 
         # Initialize the Azure OpenAI chat model
         self.chat = AzureChatOpenAI(
-            azure_deployment=DEOLOYMENT_NAME,
-            azure_endpoint=AZURE_OPENAI_ENDPOINT,
-            api_key=AZURE_OPENAI_API_KEY,
+            azure_deployment=self.chat_deployment_name,
+            azure_endpoint=self.azure_openai_endpoint,
+            api_key=self.azure_openai_api_key,
             openai_api_type="azure",
-            openai_api_version=API_VERSION,
+            openai_api_version=self.api_version,
             temperature=0.7
         )
         self.system = system

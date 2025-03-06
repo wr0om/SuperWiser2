@@ -27,7 +27,6 @@ class RAGAgent(Agent):
         self.qdrant_client = QdrantClient(api_key=self.qdrant_api_key, url=self.qdrant_endpoint)
         self.embedding_size = 768
         self.collection_name = "Mitzi"
-        print(self.qdrant_client.get_collections())
         self.emb_deployment_name = "team5-embedding"
         self.embedding_model = "text-embedding-3-small"
         self.load_embedder()

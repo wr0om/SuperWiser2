@@ -1,6 +1,6 @@
 from agents.agent import *
 
-class EmailFormulator(Agent):
+class EmailFormulatorAgent(Agent):
     def __init__(self, system=""):
         super().__init__(system)
         self.system = """

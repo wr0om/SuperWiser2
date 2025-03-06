@@ -1,6 +1,6 @@
 from agents.agent import Agent
 
-class CVGenerator(Agent):
+class CVGeneratorAgent(Agent):
     def __init__(self):
         super().__init__()
         self.system = """
@@ -59,6 +59,7 @@ class CVGenerator(Agent):
             - Personalize the CV while ensuring it aligns with the supervisor's expectations.  
 
             Your goal is to generate a **tailored, polished CV** that can be sent directly to the supervisor.
+            MAKE SURE TO INCLUDE ONLY THE AFOREMENTIONED SECTIONS IN THE CV!
             """
 
     def generate_response(self, user_input, parsed_cv, supervisor_recommendations, feedback=""):

@@ -1,7 +1,7 @@
 from agents.agent import *
 
 
-class CVParser(Agent):
+class CVParserAgent(Agent):
     def __init__(self):
         super().__init__()
         self.system = """

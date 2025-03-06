@@ -1,7 +1,7 @@
 from agents.agent import *
 import json
 
-class CVFeedback(Agent):
+class CVFeedbackAgent(Agent):
     def __init__(self):
         super().__init__()
         self.system = """
@@ -28,6 +28,9 @@ class CVFeedback(Agent):
             }
 
             PLEASE RETURN THIS JSON FORMAT!! "decision" SHOULD HAVE "accept" OR "reject" ONLY.
+            Only reject if the CV has critical mistakes that cannot be fixed with minor corrections. Be lenient if possible.
+            PLEASE RETURN THIS JSON FORMAT WITHOUT ANY ADDITIONS!!!
+
         """
         self.cv_draft = None
         self.user_prompt = None

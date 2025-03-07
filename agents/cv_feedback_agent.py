@@ -20,6 +20,7 @@ class CVFeedbackAgent(Agent):
 
             ### **Output Format:**  
             Your feedback should be **precise, constructive, and specific**, helping the CV Generator Agent refine the document for better accuracy, completeness, and alignment with the user's background and expectations.
+            Note that the CV generator agent can't add new information but can only modify the existing content, So if there is content missing from the CV draft, don't suggest adding new information.
 
             Your output should be structured in **JSON format** as follows:
             {

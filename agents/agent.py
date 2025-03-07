@@ -42,6 +42,10 @@ class Agent:
         response = self.chat(messages=messages)
         return response.content
     
+    def generate_response_from_messages(self, messages: list) -> str:
+        response = self.chat(messages=messages)
+        return response.content
+    
     def generate_response_with_pdf(self, pdf_path: str, user_input="") -> str:
         loader = PyPDFLoader(file_path=pdf_path, mode="single")
         document = loader.load()

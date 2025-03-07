@@ -25,13 +25,15 @@ class CVFeedbackAgent(Agent):
             Your output should be structured in **JSON format** as follows:
             {
                 "feedback": "Detailed feedback highlighting any issues and suggested improvements.",
-                "decision": "accept" or "reject"  // Indicates whether the generated CV is acceptable or needs revision.
+                "consistency": "consistent" or "inconsistent",  // Indicates whether the generated CV is consistent, accurate and doesn't contain hallucinations.
+                "decision": "accept" or "reject"  // Indicates whether a new CV should be generated.
             }
 
-            PLEASE RETURN THIS JSON FORMAT!! "decision" SHOULD HAVE "accept" OR "reject" ONLY.
-            Only reject if the CV has critical mistakes that cannot be fixed with minor corrections. Be lenient if possible.
+            PLEASE RETURN THIS JSON FORMAT!! "decision" SHOULD HAVE "accept" OR "reject" ONLY!! The consistency field should be "consistent" or "inconsistent" only!!
+            Only return "inconsistent" if the CV has critical mistakes and hallucinations.
+            Don't return "inconsistent" if the CV is consistent to the user's prompt and previous CV draft. The CV Generator Agent will refine it further based on your feedback, the "consistency" purpose is to filter out CVs with critical issues.
+            If the CV is consistent, accurate, and is a good professional CV that includes the relevant details, return "accept" as the decision.
             PLEASE RETURN THIS JSON FORMAT WITHOUT ANY ADDITIONS!!!
-
         """
         self.cv_draft = None
         self.user_prompt = None

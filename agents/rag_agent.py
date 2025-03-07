@@ -1,6 +1,6 @@
-# from qdrant_client import QdrantClient
+from qdrant_client import QdrantClient
 from agents.agent import *
-# from qdrant_client.models import Distance, VectorParams, PointStruct, Batch
+from qdrant_client.models import Distance, VectorParams, PointStruct, Batch
 import numpy as np
 import tqdm
 import os
@@ -24,7 +24,7 @@ class RAGAgent(Agent):
             """
         self.qdrant_api_key = os.getenv("QDRANT_API_KEY")
         self.qdrant_endpoint = "https://be736619-417f-4ba8-9088-eafbd3c5cc51.us-east4-0.gcp.cloud.qdrant.io:6333"
-        # self.qdrant_client = QdrantClient(api_key=self.qdrant_api_key, url=self.qdrant_endpoint)
+        self.qdrant_client = QdrantClient(api_key=self.qdrant_api_key, url=self.qdrant_endpoint)
         self.embedding_size = 768
         self.collection_name = "Mitzi"
         self.emb_deployment_name = "team5-embedding"
@@ -106,15 +106,15 @@ class RAGAgent(Agent):
                 vectors_config=VectorParams(size=embedding_size, distance=Distance.COSINE),  # Adjust size and distance as needed
             )
 
-    #     # Upsert points into the collection
-    #     ids = [doc["id"] for doc in documents]
-    #     vectors = [doc["vector"] for doc in documents]
-    #     payloads = [doc["payload"] for doc in documents]
+        # Upsert points into the collection
+        ids = [doc["id"] for doc in documents]
+        vectors = [doc["vector"] for doc in documents]
+        payloads = [doc["payload"] for doc in documents]
 
-    #     self.qdrant_client.upsert(
-    #         collection_name=self.collection_name,
-    #         points=Batch(ids=ids, vectors=vectors, payloads=payloads)
-    #     )
+        self.qdrant_client.upsert(
+            collection_name=self.collection_name,
+            points=Batch(ids=ids, vectors=vectors, payloads=payloads)
+        )
 
         # stored_points = self.qdrant_client.scroll(collection_name=self.collection_name, limit=10, with_payload=True, with_vectors=True)
         # print(stored_points)

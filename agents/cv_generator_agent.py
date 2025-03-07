@@ -2,8 +2,6 @@ from agents.agent import Agent
 from langchain.schema import HumanMessage, SystemMessage, AIMessage
 
 class CVGeneratorAgent(Agent):
-    def __init__(self):
-class CVGenerator(Agent):
     def __init__(self, user_input=None, supervisor_recommendations=None, parced_cv=None):
         super().__init__()
         self.system = """
@@ -96,6 +94,7 @@ class CVGenerator(Agent):
             self.add_AI_message(feedback)
 
         response = super().generate_response_from_messages(messages=self.messages)
+        self.add_AI_message("Generated CV: " + response)
         return response
 
             

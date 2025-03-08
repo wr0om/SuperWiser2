@@ -17,7 +17,8 @@ class SuperWiser:
 
     def process(self):
         self.user_input = input("Welcome to SuperWiser! Your AI research supervisor assistant. Please provide a brief description of your research interests and academic background: ")
-        self.pdf_path = input("Enter the path to the CV PDF file: ")
+        self.pdf_path = input("Enter the name of your CV in the CVs folder (without .pdf): ")
+        self.pdf_path = f"CVs/{self.pdf_path}.pdf"
         self.process_cv()
 
         while not self.satisfied:
@@ -25,11 +26,11 @@ class SuperWiser:
             self.process_cv_generator_and_feedback()
             self.process_email_formulator()
 
-            print(f"Supervisor Recommendation:\n{self.response_rag}")
-            print(f"Generated CV:\n{self.cv_generator_response}")
-            print(f"Formulated Email:\n{self.response_email_formulator}")
+            print(f"SUPERVISOR RECOMMENDATION:\n{self.response_rag}")
+            print(f"GENERATED CV:\n{self.cv_generator_response}")
+            print(f"FORMULATED E-MAIL:\n{self.response_email_formulator}")
 
-            is_satisfied = input("Are you satisfied with the generated CV and email? (yes/no): ")
+            is_satisfied = input("Are you satisfied with the suggested supervisor, generated CV and E-mail? (yes/no): ")
             if is_satisfied.lower() == "yes":
                 self.satisfied = True
             else:
@@ -37,7 +38,7 @@ class SuperWiser:
 
     def process_cv(self):
         self.response_cv_parser = self.cv_parser_agent.generate_response_with_pdf(self.pdf_path)
-        print(f"parsed cv:\n{self.response_cv_parser}")
+        print(f"PARSED CV:\n{self.response_cv_parser}")
         return self.response_cv_parser
     
     def process_rag(self):
@@ -81,13 +82,13 @@ class SuperWiser:
             decision = cv_feedback["decision"]
             feedback = cv_feedback["feedback"]
             consistency = cv_feedback["consistency"]
-            print(f"Desicion: {decision}")
-            print(f"Feedback: {feedback}")
-            print(f"Consistency: {consistency}")
+            # print(f"Desicion: {decision}")
+            # print(f"Feedback: {feedback}")
+            # print(f"Consistency: {consistency}")
             if decision == "accept":
                 accepted = True
             else:
-                print("Rejected CV, generating new one")
+                print("REJECTED CV, GENERATING NEW ONE...")
 
         return self.cv_generator_response
     

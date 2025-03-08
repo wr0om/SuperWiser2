@@ -1,4 +1,4 @@
-from langchain.chat_models import AzureChatOpenAI
+from langchain_openai import AzureChatOpenAI
 from langchain.prompts import ChatPromptTemplate
 from langchain.schema import HumanMessage, SystemMessage
 from langchain.document_loaders import PyPDFLoader
@@ -39,11 +39,11 @@ class Agent:
                 HumanMessage(content=user_input)
             ]
         # Call the chat model
-        response = self.chat(messages=messages)
+        response = self.chat.invoke(messages)
         return response.content
     
     def generate_response_from_messages(self, messages: list) -> str:
-        response = self.chat(messages=messages)
+        response = self.chat.invoke(messages)
         return response.content
     
     def generate_response_with_pdf(self, pdf_path: str, user_input="") -> str:

@@ -2,6 +2,9 @@ from agents.agent import *
 
 
 class CVParserAgent(Agent):
+    """
+    CVParserAgent class to extract, structure, and organize CV content into a strict format to be processed by other SuperWiser agents.
+    """
     def __init__(self):
         super().__init__()
         self.system = """

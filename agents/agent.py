@@ -1,7 +1,7 @@
 from langchain_openai import AzureChatOpenAI
 from langchain.prompts import ChatPromptTemplate
 from langchain.schema import HumanMessage, SystemMessage
-from langchain.document_loaders import PyPDFLoader
+from langchain_community.document_loaders import PyPDFLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 
 import os
@@ -10,7 +10,11 @@ from dotenv import load_dotenv
 load_dotenv()
 
 class Agent:
+    """
+    Generic agent class that can be used to interact with the Azure OpenAI chat model.
+    """
     def __init__(self, system=""):
+        # Load needed variables
         self.azure_openai_api_key = os.getenv("API_KEY")
         self.chat_deployment_name = "team5-gpt4o" # team5-embedding
         self.azure_openai_endpoint = "https://096290-oai.openai.azure.com"
@@ -28,6 +32,9 @@ class Agent:
         self.system = system
 
     def generate_response(self, user_input: str) -> str:
+        """
+        Generate a response from the chat model given a user input.
+        """
         # Render the final prompt
         if self.system:
             messages = [
@@ -43,10 +50,16 @@ class Agent:
         return response.content
     
     def generate_response_from_messages(self, messages: list) -> str:
+        """
+        Generate a response from the chat model given a list of messages.
+        """
         response = self.chat.invoke(messages)
         return response.content
     
     def generate_response_with_pdf(self, pdf_path: str, user_input="") -> str:
+        """
+        Generate a response from the chat model given a PDF file path and an optional user input.
+        """
         loader = PyPDFLoader(file_path=pdf_path, mode="single")
         document = loader.load()
         document_text = document[0].page_content

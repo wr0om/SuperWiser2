@@ -7,6 +7,9 @@ import json
 
 
 class SuperWiser:
+    """
+    SuperWiser class to orchestrate the interaction between the CV Parser, RAG, CV Generator, CV Feedback, and Email Formulator agents.
+    """
     def __init__(self):
         self.cv_parser_agent = CVParserAgent()
         self.rag_agent = RAGAgent()
@@ -16,6 +19,9 @@ class SuperWiser:
         self.satisfied = False
 
     def process(self):
+        """
+        Process the SuperWiser AI assistant to guide the user in finding the best research supervisor match, refining their CV, and crafting a professional email.
+        """
         print(""" 
 👋 Welcome to SuperWiser - Your AI Research Supervisor Assistant!
 Finding the right research supervisor can be tough, but I'm here to make it easier.
@@ -47,15 +53,25 @@ Let's find your perfect research supervisor together! 🚀""")
                 self.user_input = input("Please provide a clearer description of your research interests and academic background: ")
 
     def process_cv(self):
+        """
+        Process the CV Parser to extract details from the user's CV.
+        """
         self.response_cv_parser = self.cv_parser_agent.generate_response_with_pdf(self.pdf_path)
         # print(f"PARSED CV:\n{self.response_cv_parser}")
         return self.response_cv_parser
     
     def process_rag(self):
-        self.response_rag = self.rag_agent.generate_response(self.user_input, self.response_cv_parser)
+        """
+        Process the RAG Agent to generate recommendations and guidance for the user based on their research interests and expertise of potential supervisors.
+        """
+        self.response_rag = self.rag_agent.generate_response(self.user_input)
         return self.response_rag
     
     def process_cv_generator_and_feedback(self):
+        """
+        Process the CV Generator and CV Feedback Agents to generate a structured CV and provide feedback on it.
+        Loop a maximum of 3 times to generate an acceptable CV, after which the process will stop and the last generated CV will be used.
+        """
         accepted = False
         feedback = None
         counter = 0
@@ -83,5 +99,8 @@ Let's find your perfect research supervisor together! 🚀""")
         return self.cv_generator_response
     
     def process_email_formulator(self):
+        """
+        Process the Email Formulator Agent to generate a professional email for the student to send to a potential research supervisor requesting a meeting.
+        """
         self.response_email_formulator = self.email_formulator_agent.generate_response(self.user_input, self.cv_generator_response, self.response_rag)
         return self.response_email_formulator

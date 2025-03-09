@@ -2,6 +2,9 @@ from agents.agent import Agent
 from langchain.schema import HumanMessage, SystemMessage, AIMessage
 
 class CVGeneratorAgent(Agent):
+    """
+    CVGeneratorAgent class to generate a structured, professional CV based on the user's existing CV draft, supervisor recommendations, and parsed CV data.
+    """
     def __init__(self, user_input=None, supervisor_recommendations=None, parced_cv=None):
         super().__init__()
         self.system = """
@@ -75,12 +78,21 @@ class CVGeneratorAgent(Agent):
             self.add_human_message(parced_cv)
 
     def add_human_message(self, content):
+        """
+        Add a human message to the list of messages.
+        """
         self.messages.append(HumanMessage(content=content))
 
     def add_AI_message(self, content):
+        """
+        Add an AI message to the list of messages.
+        """
         self.messages.append(AIMessage(content=content))
 
     def generate_response(self, parsed_cv=None, supervisor_recommendations=None, feedback=None, user_input=None):
+        """
+        Generate a response from the CV Generator Agent by creating a structured, professional CV based on the user's existing CV draft, supervisor recommendations, and parsed CV data.
+        """
         if parsed_cv:
             self.add_human_message(parsed_cv)
 

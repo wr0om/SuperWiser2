@@ -1,14 +1,16 @@
 from qdrant_client import QdrantClient
 from agents.agent import *
 from qdrant_client.models import Distance, VectorParams, PointStruct, Batch
-import numpy as np
 import tqdm
 import os
-import torch
 import pickle
 from langchain_openai import AzureOpenAIEmbeddings
 
 class RAGAgent(Agent):
+    """
+    RAGAgent class to provide recommendations and guidance to students based on the research interests and expertise of potential supervisors using a RAG.
+    The RAG is used to retrieve relevant information from a database of researchers and provide tailored suggestions to students seeking research supervision, utilizing gpt embeddings and qdrant as a vector database.
+    """
     def __init__(self):
         super().__init__()
         self.system = """You are a RAG agent for SuperWiser, an AI-driven research supervisor assistant.
@@ -32,6 +34,9 @@ class RAGAgent(Agent):
         self.load_embedder()
 
     def load_embedder(self):
+        """
+        Load the Azure OpenAI Embeddings model for text embedding.
+        """
         self.embedder = AzureOpenAIEmbeddings(
             azure_deployment=self.emb_deployment_name,
             azure_endpoint=self.azure_openai_endpoint,
@@ -42,13 +47,22 @@ class RAGAgent(Agent):
         )
 
     def embed_text(self, text):
-        #return self.model(**self.tokenizer(text, return_tensors="pt")).last_hidden_state[0, -1].detach().numpy()
+        """
+        Embed the input text using the Azure OpenAI Embeddings model.
+        """
         return self.embedder.embed_query(text)
 
     def delete_collection(self):
+        """
+        Delete the collection from the Qdrant database.
+        """
         self.qdrant_client.delete_collection(self.collection_name)
 
     def retrieve_documents(self, query):
+        """
+        Retrieve the most relevant documents based on the user query.
+        Retrieves len(self.supervisor_history)+1 documents, then ignores the ones already in the history and outputs the most relevant one (by its score).
+        """
         # Embed the query
         query_vector = self.embed_text(query)
 
@@ -76,7 +90,10 @@ class RAGAgent(Agent):
         self.supervisor_history.append(documents[0]['id'])
         return documents
 
-    def generate_response(self, user_input, parsed_cv):
+    def generate_response(self, user_input):
+        """
+        Generate a response from the RAG Agent by providing recommendations and guidance to students based on the research interests and expertise of potential supervisor.
+        """
         # Retrieve the most relevant document 
         input_and_cv = user_input #f"{user_input} CV: {parsed_cv}"
         documents = self.retrieve_documents(input_and_cv)
@@ -90,27 +107,12 @@ class RAGAgent(Agent):
             {supervisor_text}
         """
         return super().generate_response(formatted_prompt)
-
-
-    def load_data(self, documents, embedding_size=1536):
-        # Create the collection if it doesn't exist
-        if not self.qdrant_client.collection_exists(self.collection_name):
-            self.qdrant_client.create_collection(
-                collection_name=self.collection_name,
-                vectors_config=VectorParams(size=embedding_size, distance=Distance.COSINE),  # Adjust size and distance as needed
-            )
-
-        # Upsert points into the collection
-        ids = [doc["id"] for doc in documents]
-        vectors = [doc["vector"] for doc in documents]
-        payloads = [doc["payload"] for doc in documents]
-
-        self.qdrant_client.upsert(
-            collection_name=self.collection_name,
-            points=Batch(ids=ids, vectors=vectors, payloads=payloads)
-        )
-
+    
     def load_documents(self, doc_path="web_scraping/researchers_db"):
+        """
+        Load the documents from the specified path and embed them for the RAG Agent.
+        Then, load the data into the Qdrant database.
+        """
         # load data from web_scraping/researchers_db folder
         documents = []
         count = 0
@@ -129,3 +131,26 @@ class RAGAgent(Agent):
         # save the documents (just in case)
         with open("web_scraping/documents.pkl", "wb") as f:
             pickle.dump(documents, f)
+
+    def load_data(self, documents, embedding_size=1536):
+        """
+        Load the documents into the Qdrant database (after already embedding them, and organizing them in the right format).
+        """
+        # Create the collection if it doesn't exist
+        if not self.qdrant_client.collection_exists(self.collection_name):
+            self.qdrant_client.create_collection(
+                collection_name=self.collection_name,
+                vectors_config=VectorParams(size=embedding_size, distance=Distance.COSINE),  # Adjust size and distance as needed
+            )
+
+        # Upsert points into the collection
+        ids = [doc["id"] for doc in documents]
+        vectors = [doc["vector"] for doc in documents]
+        payloads = [doc["payload"] for doc in documents]
+
+        self.qdrant_client.upsert(
+            collection_name=self.collection_name,
+            points=Batch(ids=ids, vectors=vectors, payloads=payloads)
+        )
+
+    

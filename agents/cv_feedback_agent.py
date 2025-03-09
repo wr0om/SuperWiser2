@@ -2,6 +2,9 @@ from agents.agent import *
 import json
 
 class CVFeedbackAgent(Agent):
+    """
+    CVFeedbackAgent class to provide feedback on the generated CV by comparing it against the user's previous CV draft and user prompt.
+    """
     def __init__(self):
         super().__init__()
         self.system = """
@@ -40,6 +43,9 @@ class CVFeedbackAgent(Agent):
         self.generated_cv = None
 
     def generate_response(self, user_input, cv_draft, generated_cv):
+        """
+        Generate a response from the CV Feedback Agent by comparing the generated CV against the user's previous CV draft and user prompt.
+        """
         self.cv_draft = cv_draft
         self.user_prompt = user_input
         self.generated_cv = generated_cv

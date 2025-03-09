@@ -1,6 +1,9 @@
 from agents.agent import *
 
 class EmailFormulatorAgent(Agent):
+    """
+    EmailFormulatorAgent class to generate a professional email for the student to send to a potential research supervisor requesting a meeting.
+    """
     def __init__(self, system=""):
         super().__init__(system)
         self.system = """

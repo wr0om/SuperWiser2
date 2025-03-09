@@ -16,9 +16,19 @@ class SuperWiser:
         self.satisfied = False
 
     def process(self):
-        self.user_input = input("Welcome to SuperWiser! Your AI research supervisor assistant. Please provide a brief description of your research interests and academic background: ")
-        self.pdf_path = input("Enter the name of your CV in the CVs folder (without .pdf): ")
-        self.pdf_path = f"CVs/{self.pdf_path}.pdf"
+        print(""" 
+👋 Welcome to SuperWiser - Your AI Research Supervisor Assistant!
+Finding the right research supervisor can be tough, but I'm here to make it easier.
+I'll help you identify the best supervisor match based on your research interests, academic background, and preferences.
+Plus, I'll refine your CV and craft a professional email to make a strong first impression.
+
+To get started, just share:
+✅ A brief description of your research interests and background
+✅ A PDF of your CV (even if it's a draft)
+
+Let's find your perfect research supervisor together! 🚀""")
+        self.user_input = input("Please provide a brief description of your research interests and academic background: ")
+        self.pdf_path = input("Enter the path of your CV: ")
         self.process_cv()
 
         while not self.satisfied:
@@ -38,7 +48,7 @@ class SuperWiser:
 
     def process_cv(self):
         self.response_cv_parser = self.cv_parser_agent.generate_response_with_pdf(self.pdf_path)
-        print(f"PARSED CV:\n{self.response_cv_parser}")
+        # print(f"PARSED CV:\n{self.response_cv_parser}")
         return self.response_cv_parser
     
     def process_rag(self):
@@ -46,26 +56,6 @@ class SuperWiser:
         return self.response_rag
     
     def process_cv_generator_and_feedback(self):
-        # count = 0
-        # feedback = ""
-        # while count < 2:
-        #     # generate CV
-        #     self.response_cv_generator = self.cv_generator_agent.generate_response(self.user_input, self.response_cv_parser, self.response_rag, feedback=feedback)
-        #     # print(response_cv_generator)
-
-        #     # get feedback
-        #     self.response_cv_feedback = self.cv_feedback_agent.generate_response(self.user_input, self.response_cv_parser, self.response_cv_generator)
-        #     # print(response_cv_feedback)
-
-        #     # load response_cv_feedback into json
-        #     json_response_cv_feedback = json.loads(self.response_cv_feedback)
-        #     decision = json_response_cv_feedback["decision"]
-        #     feedback = json_response_cv_feedback["feedback"]
-        #     if decision == "accept":
-        #         break
-
-        #     print("Rejected CV, generating new one")
-        #     count += 1
         accepted = False
         feedback = None
         counter = 0
@@ -75,9 +65,9 @@ class SuperWiser:
         while not accepted and counter < 3:
             counter += 1
             self.cv_generator_response = self.cv_generator_agent.generate_response(feedback=feedback)
-            print(f"Generated CV: {self.cv_generator_response}")
+            # print(f"Generated CV: {self.cv_generator_response}")
             self.cv_feedback_response = self.cv_feedback_agent.generate_response(self.user_input, self.response_cv_parser, self.cv_generator_response)
-            print(f"Feedback: {self.cv_feedback_response}")
+            # print(f"Feedback: {self.cv_feedback_response}")
             cv_feedback = json.loads(self.cv_feedback_response)
             decision = cv_feedback["decision"]
             feedback = cv_feedback["feedback"]

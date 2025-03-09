@@ -55,10 +55,5 @@ class CVFeedbackAgent(Agent):
             {generated_cv}
         """
         response = super().generate_response(formatted_prompt)
-
-        # # extract feedback and decision from the response using json (TODO: check this)
-        # feedback_data = json.loads(response)
-        # feedback = feedback_data["feedback"]
-        # decision = feedback_data["decision"]
         return response
 

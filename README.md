@@ -1,39 +1,59 @@
-# TODO
+<!-- # TODO
 1. Fix README.md
 2. Add requirements.txt
-3. Add 3 examples of input+output to the examples folder
+3. Add 3 examples of input+output to the examples folder -->
+# SuperWiser - Your AI Research Supervisor Assistant  
 
-# SuperWiser - Your AI Research Supervisor Assistant
+![SuperWiser](imgs/emily.png)  
 
-![alt text](imgs/emily.png)
+## Introduction  
+**SuperWiser** is an AI-powered assistant designed to help you find the best research supervisor for your academic journey. By analyzing your research interests, CV, and preferences, it recommends suitable faculty members, refines your CV, and drafts a professional introduction email.  
 
-## Introduction
-SuperWiser is an AI research supervisor assistant that helps you to manage your research projects. It is designed to help you to keep track of your research projects, papers, and experiments. 
+## How to Run  
 
-## How to Run
-To run the application, you need to install the required libraries in a Python 3.11 environment. You can install the required libraries by running the following command:
-```
-pip install -r requirements.txt
-```
-
-After installing the required libraries, you also need to provide the required API keys. You can provide the API key by creating a `.env` file in the root directory of the project and adding the following lines:
-```
-API_KEY=YOUR_OPENAI_API_KEY
-QDRANT_API_KEY=YOUR_QDRANT_API_KEY
+### 1. Install Dependencies  
+Ensure you have **Python 3.11** installed. Then, install the required libraries:  
+```bash  
+pip install -r requirements.txt  
 ```
 
-After providing the API keys, you can run the application by running the following command:
+### 2. Set Up API Keys  
+Create a `.env` file in the root directory and add your API credentials:  
+```bash  
+API_KEY=YOUR_OPENAI_API_KEY  
+QDRANT_API_KEY=YOUR_QDRANT_API_KEY  
 ```
-python superwiser_demo.py
-```
-or run the provided notebook `superwiser_demo.ipynb`.
 
-## Features
-* A user-friendly chatbot for seamless interaction.
-* Accepts user preferences and a CV draft.
-* Recommends suitable research supervisors.
-* Generates a tailored email draft and polished CV.
-* Ensures CV accuracy, avoiding any misleading information.
+### 3. Run the Application  
+You can run SuperWiser using the following:  
 
-## How it Works
-SuperWiser uses a combination of NLP and ML techniques to provide a seamless user experience. It uses OpenAI's GPT-4o for generating text and Qdrant for similarity search of research supervisors. You will be asked for a few preferences and a CV draft. Based on your preferences and CV, SuperWiser will recommend suitable research supervisors. It will also generate a tailored email draft and a polished CV for you. If you are dissatisfied with the recommendations, you can ask for more recommendations by providing clearer preferences.
+- **Python script**:  
+  ```bash  
+  python superwiser_demo.py  
+  ```  
+
+## Features  
+✅ **Interactive AI chatbot** for seamless user experience  
+✅ **Supervisor recommendations** based on research alignment  
+✅ **CV enhancement** to match supervisor expectations  
+✅ **Professional email drafting** for first contact  
+✅ **Ensures CV accuracy**, avoiding misleading information  
+
+## How It Works  
+SuperWiser leverages **Natural Language Processing (NLP)** and **Machine Learning (ML)** techniques, integrating:  
+- **GPT-4o** for text generation  
+- **Qdrant** for similarity-based supervisor matching  
+
+The process:  
+1. You provide your research interests, supervision preferences, and a CV draft.  
+2. SuperWiser analyzes your inputs and suggests **suitable research supervisors**.  
+3. It refines your CV and generates a **tailored email draft**.  
+4. If needed, you can request additional recommendations with refined preferences.  
+
+## Data Source  
+SuperWiser’s supervisor database is built from **Technion’s DDS, CS, and ECE department websites**.  
+- For each supervisor, the **20 most recent research papers** (title & abstract) are retrieved via **Semantic Scholar API**.  
+- Data is stored in **Qdrant**, with **GPT embeddings** used for efficient retrieval in the recommendation process.  
+
+## Examples
+In the `examples/` folder, you can find three examples of inputs and outputs, each in its own python notebook.

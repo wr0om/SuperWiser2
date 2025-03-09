@@ -41,7 +41,7 @@ SuperWiser leverages cutting-edge AI to streamline the research supervisor searc
 
 1. **User Input**: You provide details such as:
    - Research interests & supervision preferences
-   - CV draft path
+   - CV draft pdf path
 
 2. **AI Analysis & Matching**:
    - SuperWiser analyzes your input using a **GPT embedder** and retrieves the most relevant supervisor.
